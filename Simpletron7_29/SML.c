@@ -32,7 +32,7 @@ void readString(double *memory, int16_t *operand, uint16_t *counter)
     if (*operand < 20)
     {
         *operand = 100;
-        printf("\tSet Default location"); 
+        printf("\tSet Default location pos: 100\n"); 
     }
     
 }
