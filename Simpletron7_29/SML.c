@@ -153,26 +153,27 @@ void loadImplementation(double  *memory, SML *information)
 {
     uint32_t word       = 0;
     uint16_t counter     = 0;
-    // uint8_t palabra[6] = {0};
+    uint8_t palabra[6] = {0};
     do
     {
         printf("%d ?  ",counter);
-        // fflush(stdin);
-        scanf("%d",&word);
-        // word = 0;
+        fflush(stdin);
+        // scanf("%d",&word);
+        scanf("%s",palabra);
+        word = 0;
         // scanf("%d",palabra);
-        // for (uint8_t i = 0; i < strlen((const char *)palabra); i++)
-        // {
-        //     if (i>0)
-        //     {
-        //         word = word << 4;
-        //     }
-        //     word += ConversionHex_to_Dec(palabra[i]);
-        // }
+        for (uint8_t i = 0; i < strlen((const char *)palabra); i++)
+        {
+            if (i>0)
+            {
+                word = word << 4;
+            }
+            word += ConversionHex_to_Dec(palabra[i]);
+        }
         memory[counter] = (double)word;
         counter++;
 
-    } while (/*word != 1048575 ||*/ word != -9999);
+    } while (word != 1048575 /*|| word != -9999*/);
     printf("*** Program loading completed ***\n");
     printf("*** Program execution begins *** \n\n");
 }
@@ -221,6 +222,12 @@ void executeImplementation(double *memory, SML *information)
         case MULTIPLY:
             multiply(memory,&information->operand,&information->accumulator, &information->instructionCounter);
             break;
+        case REMAINDER:
+            remaind(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            break;
+        case EXPONENTIATION:
+            exponetation(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            break;
         case BRANCH:
             branch(memory,&information->operand,&information->instructionCounter);
             break;
@@ -259,8 +266,6 @@ void dumpImplementation(double *memory,  SML *information)
     printf("operand:\t\t%02ld\n\n",information->operand);
 
     printf("MEMORY:\n");
-    // printf("\t 0\t 1\t 2\t 3\t 4\t 5\t 6\t 7\t 8\t 9\t 10\t "\
-    //         "11\t 12\t 13\t 14\t 15\t 16\t 17\t 18\t 19\t");
     for (uint16_t i = 0; i < SIZE; i++){
         if(i%20==0){
             printf("\n");
