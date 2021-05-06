@@ -75,6 +75,15 @@
         int16_t     operand;
     }SML;
     
+    typedef struct _string_t
+    {
+        int8_t      stringInput[1000];
+        uint16_t    sizeString;
+        uint16_t    counter;
+        int16_t     operand;
+        uint32_t    packchar;
+    }String_t;
+    
 
     /*
         Operations
@@ -89,7 +98,9 @@
 
     void write(double  *memory, int16_t *operand, uint16_t *counter);
 
-    void readString(double *memory, int16_t *operand, uint16_t *counter);  
+    void readString(double *memory, int16_t *operand, uint16_t *counter); 
+
+    void writeString(double *memory, int16_t *operand, uint16_t *counter); 
 
     void load(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
 
@@ -126,4 +137,5 @@
     /**/
 
     int16_t ConversionHex_to_Dec(char character);
+    void packgetChar(double *memory, String_t *data);
 #endif

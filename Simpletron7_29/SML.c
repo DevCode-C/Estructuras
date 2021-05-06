@@ -29,12 +29,33 @@ void write(double *memory, int16_t *operand, uint16_t *counter)
 
 void readString(double *memory, int16_t *operand, uint16_t *counter)
 {
+    String_t dataString = {{0},0,0,0};
     if (*operand < 20)
     {
         *operand = 100;
-        printf("\tSet Default location pos: 100\n"); 
+        printf("\tSet Default location pos: 100\n");
+        dataString.counter = *counter;
+        dataString.operand = *operand;
+        printf("\tIntroduce el string:\n");
+        fflush(stdin);
+        scanf("%[^\n]",dataString.stringInput);
+        // scanf("%s",dataString.stringInput);
+        dataString.sizeString = strlen((const char *)dataString.stringInput);
+        // printf("Antes de la funcion\n");
+        packgetChar(memory,&dataString); 
+    }
+    else
+    {
+        dataString.counter = *counter;
+        dataString.operand = *operand;
+        printf("\tIntroduce el string:\n");
+        fflush(stdin);
+        scanf("%s",dataString.stringInput);
+        dataString.sizeString = strlen((const char *)dataString.stringInput);
+        packgetChar(memory,&dataString);
     }
     
+    *counter +=1;
 }
 
 void load(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
@@ -146,6 +167,41 @@ int16_t ConversionHex_to_Dec(char character)
         return character - '0';
     }
     return (10 +(toupper(character) - 'A'));
+    
+}
+
+void packgetChar(double *memory, String_t *data)
+{
+    memory[data->operand] = data->sizeString - 1;
+    data->operand++;
+    bool flag = true;
+    uint16_t increment = 0;
+    uint8_t charCounter = 0;
+    do
+    {
+        data->packchar |= data->stringInput[increment] << (8*charCounter);
+        memory[data->operand] = data->packchar; 
+        charCounter++;
+        increment++;
+
+        if (charCounter == 4)
+        {
+            charCounter = 0;
+            data->packchar = 0;
+            data->counter++;
+            data->operand++;
+        }
+
+        if (data->stringInput[increment] == '@')
+        {
+            flag = false;
+        }
+        else if (increment == data->sizeString)
+        {
+            flag = false;
+        }
+    } while (flag != false);
+    
     
 }
 
