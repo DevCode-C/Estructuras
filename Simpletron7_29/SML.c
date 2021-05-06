@@ -58,6 +58,26 @@ void readString(double *memory, int16_t *operand, uint16_t *counter)
     *counter +=1;
 }
 
+void writeString(double *memory, int16_t *operand, uint16_t *counter)
+{
+    uint16_t charN = 0;
+    if (*operand < 20)
+    {
+        *operand = 100;
+        charN = memory[*operand];
+        SizeOfStringInPack(&charN);
+        unPackgetChar(memory,charN,operand);
+    }
+    else
+    {
+        charN = memory[*operand];
+        SizeOfStringInPack(&charN);
+        unPackgetChar(memory,charN,operand);
+    }
+    
+    // *counter +=1;
+}
+
 void load(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
 {
     *accumulator = memory[*operand];
@@ -172,7 +192,7 @@ int16_t ConversionHex_to_Dec(char character)
 
 void packgetChar(double *memory, String_t *data)
 {
-    memory[data->operand] = data->sizeString - 1;
+    memory[data->operand] = data->sizeString -1 ;
     data->operand++;
     bool flag = true;
     uint16_t increment = 0;
@@ -201,8 +221,39 @@ void packgetChar(double *memory, String_t *data)
             flag = false;
         }
     } while (flag != false);
+}
+
+void unPackgetChar(double *memory, uint16_t sizeChar, int16_t *operand)
+{
+    uint32_t    word        = 0;
+    int8_t      character   = 0;  
+
     
+    for (uint16_t i = 0; i < sizeChar + 1; i++)
+    {
+        word = (uint32_t)memory[(*operand + i)];
+        for (uint8_t j = 0; j < 4; j++)
+        {
+            character = (word >> (8*j)) & 0xff;
+            printf("%c",character);
+        }
+    }
+    printf("\n");
     
+}
+
+void SizeOfStringInPack(uint16_t *SizeChar)
+{
+    uint16_t    firtsPart = 0;
+    // uint8_t     floatPart = 0;
+
+    firtsPart = *SizeChar/4;
+    if ((*SizeChar % 4) != 0)
+    {
+        firtsPart += 1;
+    }
+
+    *SizeChar = firtsPart;    
 }
 
 void loadImplementation(double  *memory, SML *information)
@@ -260,6 +311,8 @@ void executeImplementation(double *memory, SML *information)
         case READ_STRING:
             readString(memory, &information->operand, &information->instructionCounter);
             break;
+        case WRITE_STRING:
+            writeString(memory,&information->operand, &information->instructionCounter);
         case LOAD:
             load(memory, &information->operand, &information->accumulator , &information->instructionCounter);
             break;

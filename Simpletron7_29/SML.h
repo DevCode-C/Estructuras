@@ -17,6 +17,8 @@
     #define WRITE           11 //   Write a word from a specific location in memory to the terminal.
 
     #define READ_STRING     12
+
+    #define WRITE_STRING    13
     
     /*
         Load/store operations:
@@ -137,5 +139,10 @@
     /**/
 
     int16_t ConversionHex_to_Dec(char character);
+
     void packgetChar(double *memory, String_t *data);
+
+    void unPackgetChar(double *memory, uint16_t sizeChar, int16_t *operand);
+
+    void SizeOfStringInPack(uint16_t *SizeChar); 
 #endif
