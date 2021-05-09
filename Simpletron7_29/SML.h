@@ -96,37 +96,37 @@
         Operations Functions
     */
 
-    void read(double *memory, int16_t *operand, uint16_t *counter);
+    void read(double *memory, SML *data);
 
-    void write(double  *memory, int16_t *operand, uint16_t *counter);
+    void write(double  *memory, SML *data);
 
-    void readString(double *memory, int16_t *operand, uint16_t *counter); 
+    void readString(double *memory, SML *data); 
 
-    void writeString(double *memory, int16_t *operand, uint16_t *counter); 
+    void writeString(double *memory, SML *data); 
 
-    void load(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void load(double  *memory, SML *data);
 
-    void store(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void store(double  *memory, SML *data);
 
-    void newline(double  *memory,uint16_t *counter);
+    void newline(double  *memory,SML *data);
 
-    void add(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void add(double  *memory, SML *data);
 
-    void substract(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void substract(double  *memory, SML *data);
 
-    void divide(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void divide(double  *memory, SML *data);
 
-    void multiply(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void multiply(double  *memory, SML *data);
 
-    void remaind(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void remaind(double  *memory, SML *data);
 
-    void exponetation(double  *memory, int16_t *operand, double *accumulator, uint16_t *counter);
+    void exponetation(double  *memory, SML *data);
 
-    void branch(double  *memory, int16_t *operand, uint16_t *counter);
+    void branch(double  *memory, SML *data);
 
-    void branchNeg(double  *memory, int16_t *operand, uint16_t *counter, double *accumulator);
+    void branchNeg(double  *memory, SML *data);
 
-    void branchZero(double  *memory, int16_t *operand, uint16_t *counter, double *accumulator);
+    void branchZero(double  *memory, SML *data);
 
     void halt(void);
 

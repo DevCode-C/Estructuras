@@ -14,28 +14,28 @@ void welcome(void)
             "*** your program. ***\n");
 }
 
-void read(double *memory, int16_t *operand, uint16_t *counter)
+void read(double *memory, SML *data)
 {
-    scanf("%lf",&memory[*operand]);
-    printf("%0.2lf\n",memory[*operand]);
-    *counter += 1;
+    scanf("%lf",&memory[data->operand]);
+    printf("%0.2lf\n",memory[data->operand]);
+    data->instructionCounter += 1;
 }
 
-void write(double *memory, int16_t *operand, uint16_t *counter)
+void write(double *memory, SML *data)
 {
-    printf("%0.2lf",memory[*operand]);
-    *counter += 1;
+    printf("%0.2lf",memory[data->operand]);
+    data->instructionCounter += 1;
 }
 
-void readString(double *memory, int16_t *operand, uint16_t *counter)
+void readString(double *memory, SML *data)
 {
     String_t dataString = {{0},0,0,0};
-    if (*operand < 20)
+    if (data->operand < 20)
     {
-        *operand = 100;
+        data->operand = 100;
         printf("\tSet Default location pos: 100\n");
-        dataString.counter = *counter;
-        dataString.operand = *operand;
+        dataString.counter = data->instructionCounter;
+        dataString.operand = data->operand;
         printf("\tIntroduce el string:\n");
         fflush(stdin);
         scanf("%[^\n]",dataString.stringInput);
@@ -46,8 +46,8 @@ void readString(double *memory, int16_t *operand, uint16_t *counter)
     }
     else
     {
-        dataString.counter = *counter;
-        dataString.operand = *operand;
+        dataString.counter = data->instructionCounter;
+        dataString.operand = data->operand;
         printf("\tIntroduce el string:\n");
         fflush(stdin);
         scanf("%s",dataString.stringInput);
@@ -55,64 +55,65 @@ void readString(double *memory, int16_t *operand, uint16_t *counter)
         packgetChar(memory,&dataString);
     }
     
-    *counter +=1;
+    data->instructionCounter +=1;
 }
 
-void writeString(double *memory, int16_t *operand, uint16_t *counter)
+void writeString(double *memory, SML *data)
 {
     uint16_t charN = 0;
-    if (*operand < 20)
+    if (data->operand < 20)
     {
-        *operand = 100;
-        charN = memory[*operand];
+        data->operand = 100;
+        charN = memory[data->operand];
         SizeOfStringInPack(&charN);
-        unPackgetChar(memory,charN,operand);
+        unPackgetChar(memory,charN,&data->operand);
     }
     else
     {
-        charN = memory[*operand];
+        charN = memory[data->operand];
         SizeOfStringInPack(&charN);
-        unPackgetChar(memory,charN,operand);
+        unPackgetChar(memory,charN,&data->operand);
     }
     
     // *counter +=1;
 }
 
-void load(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void load(double *memory, SML *data)
 {
-    *accumulator = memory[*operand];
-    *counter += 1;
+    data->accumulator = memory[data->operand];
+    data->instructionCounter += 1;
 }
 
-void newline(double *memory,uint16_t *counter)
+void newline(double *memory,SML *data)
 {
-    *counter += 1; 
+    printf("\n");
+    data->instructionCounter += 1; 
 }
 
-void store(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void store(double *memory, SML *data)
 {
-    memory[*operand] = *accumulator;
-    *counter += 1;
+    memory[data->operand] = data->accumulator;
+    data->instructionCounter += 1;
 }
 
-void add(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void add(double *memory, SML *data)
 {
-    *accumulator += memory[*operand];
-    *counter += 1;
+    data->accumulator += memory[data->operand];
+    data->instructionCounter += 1;
 }
 
-void substract(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void substract(double *memory, SML *data)
 {
-    *accumulator -= memory[*operand];
-    *counter += 1;
+    data->accumulator -= memory[data->operand];
+    data->instructionCounter += 1;
 }
 
-void divide(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void divide(double *memory, SML *data)
 {
-    if (memory[*operand] != 0)
+    if (memory[data->operand] != 0)
     {
-        *accumulator /= memory[*operand];
-        *counter += 1; 
+        data->accumulator /= memory[data->operand];
+        data->instructionCounter += 1; 
     }
     else
     {
@@ -123,53 +124,53 @@ void divide(double *memory, int16_t *operand, double *accumulator, uint16_t *cou
     
 }
 
-void multiply(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void multiply(double *memory, SML *data)
 {
-    *accumulator *= memory[*operand];
-    *counter += 1;
+    data->accumulator *= memory[data->operand];
+    data->instructionCounter += 1;
 }
 
-void remaind(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void remaind(double *memory, SML *data)
 {
-    *accumulator = remainderl(*accumulator,memory[*operand]);
+    data->accumulator = remainderl(data->accumulator,memory[data->operand]);
     // *accumulator %= memory[*operand];
-    *counter += 1;
+    data->instructionCounter += 1;
 }
 
-void exponetation(double *memory, int16_t *operand, double *accumulator, uint16_t *counter)
+void exponetation(double *memory, SML *data)
 {
-    *accumulator = pow((double)*accumulator,(double)memory[*operand]);
-    *counter += 1;
+    data->accumulator = pow((double)data->accumulator,(double)memory[data->operand]);
+    data->instructionCounter += 1;
 }
 
-void branch(double *memory, int16_t *operand, uint16_t *counter)
+void branch(double *memory, SML *data)
 {
-    *counter = *operand;
+    data->instructionCounter = data->operand;
 }
 
-void branchNeg(double *memory, int16_t *operand, uint16_t *counter, double *accumulator)
+void branchNeg(double *memory, SML *data)
 {
-    if (*accumulator < 0)
+    if (data->accumulator < 0)
     {
-        *counter = *operand;
+        data->instructionCounter = data->operand;
     }
     else
     {
-        *counter += 1;
+        data->instructionCounter += 1;
     }
     
     
 }
 
-void branchZero(double *memory, int16_t *operand, uint16_t *counter, double *accumulator)
+void branchZero(double *memory, SML *data)
 {
-    if (*accumulator == 0)
+    if (data->accumulator == 0)
     {
-        *counter = *operand;
+        data->instructionCounter = data->operand;
     }
     else
     {
-        *counter += 1;
+        data->instructionCounter += 1;
     }
     
     
@@ -303,48 +304,48 @@ void executeImplementation(double *memory, SML *information)
         switch (information->operationCode)
         {
         case READ:
-            read(memory,&information->operand,&information->instructionCounter);
+            read(memory,information);
             break;
         case WRITE:
-            write(memory,&information->operand,&information->instructionCounter);
+            write(memory,information);
             break;
         case READ_STRING:
-            readString(memory, &information->operand, &information->instructionCounter);
+            readString(memory,information);
             break;
         case WRITE_STRING:
-            writeString(memory,&information->operand, &information->instructionCounter);
+            writeString(memory,information);
         case LOAD:
-            load(memory, &information->operand, &information->accumulator , &information->instructionCounter);
+            load(memory, information);
             break;
         case STORE:
-            store(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            store(memory,information);
             break;
         case ADD:
-            add(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            add(memory,information);
             break;
         case SUBTRACT:
-            substract(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            substract(memory,information);
             break;
         case DIVIDE:
-            divide(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            divide(memory,information);
             break;
         case MULTIPLY:
-            multiply(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            multiply(memory,information);
             break;
         case REMAINDER:
-            remaind(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            remaind(memory,information);
             break;
         case EXPONENTIATION:
-            exponetation(memory,&information->operand,&information->accumulator, &information->instructionCounter);
+            exponetation(memory,information);
             break;
         case BRANCH:
-            branch(memory,&information->operand,&information->instructionCounter);
+            branch(memory,information);
             break;
         case BRANCHNEG:
-            branchNeg(memory,&information->operand,&information->instructionCounter,&information->accumulator);
+            branchNeg(memory,information);
             break;
         case BRANCHZERO:
-            branchZero(memory,&information->operand,&information->instructionCounter,&information->accumulator);
+            branchZero(memory,information);
             break;
         case HALT:
             halt();
