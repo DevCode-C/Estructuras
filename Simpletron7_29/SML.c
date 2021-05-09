@@ -50,7 +50,7 @@ void readString(double *memory, SML *data)
         dataString.operand = data->operand;
         printf("\tIntroduce el string:\n");
         fflush(stdin);
-        scanf("%s",dataString.stringInput);
+        scanf("%[^\n]",dataString.stringInput);
         dataString.sizeString = strlen((const char *)dataString.stringInput);
         packgetChar(memory,&dataString);
     }
