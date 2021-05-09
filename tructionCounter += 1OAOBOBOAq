@@ -1,0 +1,35 @@
+[33mcommit 159294bb77ce6e5da53a8acb505d7704bbba2c94[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/Modificacion[m[33m, [m[1;32mModificacion[m[33m)[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Sun May 9 01:15:46 2021 -0500
+
+    Structures added
+
+[33mcommit e7d1b4ad57ac6efa159907060627651fdabb8ac9[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Wed May 5 23:47:05 2021 -0500
+
+    String output function added
+
+[33mcommit a113ab6bd5211d3cb0f227b9c37e6c61a6c699a4[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Wed May 5 21:55:33 2021 -0500
+
+    String input added
+
+[33mcommit f8337d1bc2616b327672ed0954a1b984aae19c97[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Wed May 5 02:02:10 2021 -0500
+
+    Hex input
+
+[33mcommit 1bff8e6d152b533b24984fd744f644723f4aa10e[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Wed May 5 01:46:40 2021 -0500
+
+    Hex input
+
+[33mcommit 9ce1a2b97ae9728040b149b33088577bae0ea837[m
+Author: DevCode-C <emmanuelparedescamargo@gmail.com>
+Date:   Tue May 4 23:56:45 2021 -0500
+
+    Firts commit
