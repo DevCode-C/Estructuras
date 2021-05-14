@@ -68,7 +68,7 @@
     /*
         STRUCT
     */
-    typedef struct SML
+    typedef struct _SML
     {
         double      accumulator;
         uint16_t    instructionCounter;
